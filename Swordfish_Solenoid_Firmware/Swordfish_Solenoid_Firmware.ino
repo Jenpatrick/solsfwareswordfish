@@ -1,5 +1,8 @@
 #include <Bounce2.h>
 #include <EEPROM.h>
+#include <Adafruit_FONA.h>
+#include <Adafruit_MQTT.h>
+#include <Adafruit_MQTT_FONA.h>
 
 // Pin Definitions
 #define PIN_SELECT_FIRE_A 14
