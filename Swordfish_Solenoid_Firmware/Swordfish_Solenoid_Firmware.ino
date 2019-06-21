@@ -4,6 +4,26 @@
 #include <Adafruit_MQTT.h>
 #include <Adafruit_MQTT_FONA.h>
 
+
+
+// Define *one* of the following lines:
+//#define SIMCOM_2G // SIM800/808/900/908, etc.
+//#define SIMCOM_3G // SIM5320
+#define SIMCOM_7000 // SIM7000
+//#define SIMCOM_7500 // SIM7500
+
+/************************* PIN DEFINITIONS *********************************/
+// For SIM7000 shield
+#define FONA_PWRKEY A1
+#define FONA_RST A2
+//#define FONA_DTR 8 // Connect with solder jumper
+//#define FONA_RI 9 // Need to enable via AT commands
+#define FONA_TX 0 // Microcontroller RX
+#define FONA_RX 1 // Microcontroller TX
+//#define T_ALERT 12 // Connect with solder jumper
+
+
+
 // Pin Definitions
 #define PIN_SELECT_FIRE_A 14
 #define PIN_SELECT_FIRE_B 16
@@ -16,6 +36,22 @@
 #define PIN_MOTOR_A 9
 #define PIN_MOTOR_B 10
 #define PIN_LED_RX 17
+
+
+#define samplingRate 15 // The time we want to delay after each post (in seconds)
+
+// Hardware serial is also possible!
+//HardwareSerial *fonaSerial = &Serial1;
+
+
+#ifdef SIMCOM_2G
+  Adafruit_FONA fona = Adafruit_FONA(FONA_RST);
+
+// Use this one for LTE CAT-M/NB-IoT modules (like SIM7000)
+// Notice how we don't include the reset pin because it's reserved for emergencies on the LTE module!
+#elif defined(SIMCOM_7000) || defined(SIMCOM_7500)
+  Adafruit_FONA_LTE fona = Adafruit_FONA_LTE();
+#endif
 
 
 // Configuration Options
